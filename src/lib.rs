@@ -21,7 +21,7 @@
 pub unsafe fn __hle_acquire_add_fetch8(ptr: *mut u64, mut val: u64) -> u64
 {
 	let oldval = val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -32,7 +32,7 @@ pub unsafe fn __hle_acquire_sub_fetch8(ptr: *mut u64, mut val: u64) -> u64
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -42,7 +42,7 @@ pub unsafe fn __hle_acquire_sub_fetch8(ptr: *mut u64, mut val: u64) -> u64
 pub unsafe fn __hle_release_add_fetch8(ptr: *mut u64, mut val: u64) -> u64
 {
 	let oldval = val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -53,7 +53,7 @@ pub unsafe fn __hle_release_sub_fetch8(ptr: *mut u64, mut val: u64) -> u64
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -62,7 +62,7 @@ pub unsafe fn __hle_release_sub_fetch8(ptr: *mut u64, mut val: u64) -> u64
 #[inline(always)]
 pub unsafe fn __hle_acquire_fetch_add8(ptr: *mut u64, mut val: u64) -> u64
 {
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -72,7 +72,7 @@ pub unsafe fn __hle_acquire_fetch_add8(ptr: *mut u64, mut val: u64) -> u64
 pub unsafe fn __hle_acquire_fetch_sub8(ptr: *mut u64, mut val: u64) -> u64
 {
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -81,7 +81,7 @@ pub unsafe fn __hle_acquire_fetch_sub8(ptr: *mut u64, mut val: u64) -> u64
 #[inline(always)]
 pub unsafe fn __hle_release_fetch_add8(ptr: *mut u64, mut val: u64) -> u64
 {
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -91,7 +91,7 @@ pub unsafe fn __hle_release_fetch_add8(ptr: *mut u64, mut val: u64) -> u64
 pub unsafe fn __hle_release_fetch_sub8(ptr: *mut u64, mut val: u64) -> u64
 {
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -100,7 +100,7 @@ pub unsafe fn __hle_release_fetch_sub8(ptr: *mut u64, mut val: u64) -> u64
 #[inline(always)]
 pub unsafe fn __hle_acquire_exchange_n8(ptr: *mut u64, mut val: u64) -> u64
 {
-	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -131,7 +131,7 @@ pub unsafe fn __hle_acquire_compare_exchange_n8(ptr: *mut u64, oldp: *mut u64, n
 #[inline(always)]
 pub unsafe fn __hle_release_exchange_n8(ptr: *mut u64, mut val: u64) -> u64
 {
-	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -275,7 +275,7 @@ pub unsafe fn __hle_release_xor8(ptr: *mut u64, val: u64)
 pub unsafe fn __hle_acquire_add_fetch4(ptr: *mut u32, mut val: u32) -> u32
 {
 	let oldval = val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -286,7 +286,7 @@ pub unsafe fn __hle_acquire_sub_fetch4(ptr: *mut u32, mut val: u32) -> u32
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -296,7 +296,7 @@ pub unsafe fn __hle_acquire_sub_fetch4(ptr: *mut u32, mut val: u32) -> u32
 pub unsafe fn __hle_release_add_fetch4(ptr: *mut u32, mut val: u32) -> u32
 {
 	let oldval = val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -307,7 +307,7 @@ pub unsafe fn __hle_release_sub_fetch4(ptr: *mut u32, mut val: u32) -> u32
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -316,7 +316,7 @@ pub unsafe fn __hle_release_sub_fetch4(ptr: *mut u32, mut val: u32) -> u32
 #[inline(always)]
 pub unsafe fn __hle_acquire_fetch_add4(ptr: *mut u32, mut val: u32) -> u32
 {
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -326,7 +326,7 @@ pub unsafe fn __hle_acquire_fetch_add4(ptr: *mut u32, mut val: u32) -> u32
 pub unsafe fn __hle_acquire_fetch_sub4(ptr: *mut u32, mut val: u32) -> u32
 {
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -335,7 +335,7 @@ pub unsafe fn __hle_acquire_fetch_sub4(ptr: *mut u32, mut val: u32) -> u32
 #[inline(always)]
 pub unsafe fn __hle_release_fetch_add4(ptr: *mut u32, mut val: u32) -> u32
 {
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -345,7 +345,7 @@ pub unsafe fn __hle_release_fetch_add4(ptr: *mut u32, mut val: u32) -> u32
 pub unsafe fn __hle_release_fetch_sub4(ptr: *mut u32, mut val: u32) -> u32
 {
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -354,7 +354,7 @@ pub unsafe fn __hle_release_fetch_sub4(ptr: *mut u32, mut val: u32) -> u32
 #[inline(always)]
 pub unsafe fn __hle_acquire_exchange_n4(ptr: *mut u32, mut val: u32) -> u32
 {
-	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -385,7 +385,7 @@ pub unsafe fn __hle_acquire_compare_exchange_n4(ptr: *mut u32, oldp: *mut u32, n
 #[inline(always)]
 pub unsafe fn __hle_release_exchange_n4(ptr: *mut u32, mut val: u32) -> u32
 {
-	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -529,7 +529,7 @@ pub unsafe fn __hle_release_xor4(ptr: *mut u32, val: u32)
 pub unsafe fn __hle_acquire_add_fetch2(ptr: *mut u16, mut val: u16) -> u16
 {
 	let oldval = val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -540,7 +540,7 @@ pub unsafe fn __hle_acquire_sub_fetch2(ptr: *mut u16, mut val: u16) -> u16
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -550,7 +550,7 @@ pub unsafe fn __hle_acquire_sub_fetch2(ptr: *mut u16, mut val: u16) -> u16
 pub unsafe fn __hle_release_add_fetch2(ptr: *mut u16, mut val: u16) -> u16
 {
 	let oldval = val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -561,7 +561,7 @@ pub unsafe fn __hle_release_sub_fetch2(ptr: *mut u16, mut val: u16) -> u16
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -570,7 +570,7 @@ pub unsafe fn __hle_release_sub_fetch2(ptr: *mut u16, mut val: u16) -> u16
 #[inline(always)]
 pub unsafe fn __hle_acquire_fetch_add2(ptr: *mut u16, mut val: u16) -> u16
 {
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -580,7 +580,7 @@ pub unsafe fn __hle_acquire_fetch_add2(ptr: *mut u16, mut val: u16) -> u16
 pub unsafe fn __hle_acquire_fetch_sub2(ptr: *mut u16, mut val: u16) -> u16
 {
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -589,7 +589,7 @@ pub unsafe fn __hle_acquire_fetch_sub2(ptr: *mut u16, mut val: u16) -> u16
 #[inline(always)]
 pub unsafe fn __hle_release_fetch_add2(ptr: *mut u16, mut val: u16) -> u16
 {
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -599,7 +599,7 @@ pub unsafe fn __hle_release_fetch_add2(ptr: *mut u16, mut val: u16) -> u16
 pub unsafe fn __hle_release_fetch_sub2(ptr: *mut u16, mut val: u16) -> u16
 {
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -608,7 +608,7 @@ pub unsafe fn __hle_release_fetch_sub2(ptr: *mut u16, mut val: u16) -> u16
 #[inline(always)]
 pub unsafe fn __hle_acquire_exchange_n2(ptr: *mut u16, mut val: u16) -> u16
 {
-	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -639,7 +639,7 @@ pub unsafe fn __hle_acquire_compare_exchange_n2(ptr: *mut u16, oldp: *mut u16, n
 #[inline(always)]
 pub unsafe fn __hle_release_exchange_n2(ptr: *mut u16, mut val: u16) -> u16
 {
-	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -783,7 +783,7 @@ pub unsafe fn __hle_release_xor2(ptr: *mut u16, val: u16)
 pub unsafe fn __hle_acquire_add_fetch1(ptr: *mut u8, mut val: u8) -> u8
 {
 	let oldval = val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -794,7 +794,7 @@ pub unsafe fn __hle_acquire_sub_fetch1(ptr: *mut u8, mut val: u8) -> u8
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -804,7 +804,7 @@ pub unsafe fn __hle_acquire_sub_fetch1(ptr: *mut u8, mut val: u8) -> u8
 pub unsafe fn __hle_release_add_fetch1(ptr: *mut u8, mut val: u8) -> u8
 {
 	let oldval = val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val + oldval
 }
 
@@ -815,7 +815,7 @@ pub unsafe fn __hle_release_sub_fetch1(ptr: *mut u8, mut val: u8) -> u8
 {
 	let oldval = val;
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val - oldval
 }
 
@@ -824,7 +824,7 @@ pub unsafe fn __hle_release_sub_fetch1(ptr: *mut u8, mut val: u8) -> u8
 #[inline(always)]
 pub unsafe fn __hle_acquire_fetch_add1(ptr: *mut u8, mut val: u8) -> u8
 {
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -834,7 +834,7 @@ pub unsafe fn __hle_acquire_fetch_add1(ptr: *mut u8, mut val: u8) -> u8
 pub unsafe fn __hle_acquire_fetch_sub1(ptr: *mut u8, mut val: u8) -> u8
 {
 	val = !val;
-	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -843,7 +843,7 @@ pub unsafe fn __hle_acquire_fetch_sub1(ptr: *mut u8, mut val: u8) -> u8
 #[inline(always)]
 pub unsafe fn __hle_release_fetch_add1(ptr: *mut u8, mut val: u8) -> u8
 {
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -853,7 +853,7 @@ pub unsafe fn __hle_release_fetch_add1(ptr: *mut u8, mut val: u8) -> u8
 pub unsafe fn __hle_release_fetch_sub1(ptr: *mut u8, mut val: u8) -> u8
 {
 	val = !val;
-	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xadd %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -862,7 +862,7 @@ pub unsafe fn __hle_release_fetch_sub1(ptr: *mut u8, mut val: u8) -> u8
 #[inline(always)]
 pub unsafe fn __hle_acquire_exchange_n1(ptr: *mut u8, mut val: u8) -> u8
 {
-	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf2; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
@@ -893,7 +893,7 @@ pub unsafe fn __hle_acquire_compare_exchange_n1(ptr: *mut u8, oldp: *mut u8, new
 #[inline(always)]
 pub unsafe fn __hle_release_exchange_n1(ptr: *mut u8, mut val: u8) -> u8
 {
-	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr)::"memory" : "volatile");
+	asm!(".byte 0xf3; lock; xchg %0,%1" : "+q"(val), "+m"(*ptr) : : "memory" : "volatile");
 	val
 }
 
